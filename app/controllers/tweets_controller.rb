@@ -3,6 +3,7 @@ class TweetsController < ApplicationController
 #@tweet = Tweet.find(params[:id])←これが重複しているため、before_action記述で１つにまとめる↓
 #end
   before_action :set_tweet, only: [:edit, :show]
+  before_action :move_to_index, except: [:index, :show]
 
   def index
     @tweets = Tweet.all
@@ -42,5 +43,11 @@ class TweetsController < ApplicationController
 #↓の記述でbefore_actionと組み合わせる
   def set_tweet
     @tweet = Tweet.find(params[:id])
+  end
+
+  def move_to_index
+    unless user_signed_in?
+      redirect_to action: :index
+    end
   end
 end
