@@ -1,4 +1,8 @@
 class TweetsController < ApplicationController
+#def editとshow
+#@tweet = Tweet.find(params[:id])←これが重複しているため、before_action記述で１つにまとめる↓
+#end
+  before_action :set_tweet, only: [:edit, :show]
 
   def index
     @tweets = Tweet.all
@@ -18,7 +22,7 @@ class TweetsController < ApplicationController
   end
 
   def edit
-    @tweet = Tweet.find(params[:id])
+    #before_actionで省略　@tweet = Tweet.find(params[:id])
   end
 
   def update
@@ -27,12 +31,16 @@ class TweetsController < ApplicationController
   end
 
   def show
-    @tweet = Tweet.find(params[:id])
+    #before_actionで省略　@tweet = Tweet.find(params[:id])
   end
 
   private
 
   def tweet_params
     params.require(:tweet).permit(:name, :image, :text)
+  end
+#↓の記述でbefore_actionと組み合わせる
+  def set_tweet
+    @tweet = Tweet.find(params[:id])
   end
 end
