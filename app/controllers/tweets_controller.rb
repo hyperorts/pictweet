@@ -33,6 +33,8 @@ class TweetsController < ApplicationController
 
   def show
     #before_actionで省略　@tweet = Tweet.find(params[:id])
+    @comment = Comment.new
+    @comments = @tweet.comments.includes(:user)
   end
 
   private
