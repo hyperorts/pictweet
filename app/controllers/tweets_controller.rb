@@ -3,7 +3,7 @@ class TweetsController < ApplicationController
 #@tweet = Tweet.find(params[:id])←これが重複しているため、before_action記述で１つにまとめる↓
 #end
   before_action :set_tweet, only: [:edit, :show]
-  before_action :move_to_index, except: [:index, :show]
+  before_action :move_to_index, except: [:index, :show, :search]
 
   def index
     @tweets = Tweet.includes(:user).order("created_at DESC")
@@ -37,8 +37,11 @@ class TweetsController < ApplicationController
     @comments = @tweet.comments.includes(:user)
   end
 
-  private
+  def search
+    @tweets = Tweet.search(params[:keyword])
+  end
 
+  private
   def tweet_params
     params.require(:tweet).permit(:image, :text).merge(user_id: current_user.id)
   end

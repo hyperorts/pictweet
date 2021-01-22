@@ -1,6 +1,6 @@
 <%= form_with(url: search_tweets_path, local: true, method: :get, class: "search-form") do |form| %>
-  <%= form.text_field :keyword, placeholder: "たとえ便所の隅に隠れようとも必ず見つけ出す！！", class: "search-input" %>
-  <%= form.submit "地獄の果てまで探す！！", class: "serch-btn" %>
+  <%= form.text_field :keyword, placeholder: "投稿を探してやろう！", class: "search-input" %>
+  <%= form.submit "検索", class: "search-btn" %>
 <% end %>
 <div class="contents row">
   <% @tweets.each do |tweet| %>
